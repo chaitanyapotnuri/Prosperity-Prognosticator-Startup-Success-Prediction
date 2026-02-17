@@ -1,54 +1,44 @@
-# Startup-Success-Prediction-using-Machine-Learning
+# 🚀 Startup Success Prediction using Machine Learning
 
-This project uses machine learning to predict the success of startup companies based on various features such as funding, location, industry, and team size. The goal is to help investors and entrepreneurs make more informed decisions about which startups to invest in or launch or the startup will be successfull or not.
+This project leverages Machine Learning to predict whether a startup company will be **successful (Acquired)** or **unsuccessful (Closed)**. By analyzing key features like funding history, location, and industry sector, the model provides data-driven insights to help investors and entrepreneurs make informed decisions.
 
-## DataSet
-The dataset used in this project is sourced from crunchbase.com . It contains information about several thousand startup companies, including their funding history, location, industry, team size, and other relevant features. The dataset requires cleaning and preprocessing to remove missing values and outliers, and to convert categorical variables into numeric ones.
+## 📊 Dataset
+The dataset is sourced from **Crunchbase.com**. It contains detailed information on thousands of startups, including funding history, company milestones, and industry demographics.
 
-## Machine Learning Models
-To predict the success of startups, we tested several machine learning models, including XGBoost Classifier(XBC), AdaBoost Classifier(ABC) , Random Forest Classifier (RFC), and Gradient Boosting Classifier (GBC). For each model, we performed a grid search to find the optimal hyperparameters that maximize the accuracy of the model.
+## ⚙️ Data Pipeline
+The `startup-prediction-eda-model.ipynb` notebook manages the end-to-end data lifecycle:
 
-## Results
-After testing all the models, we found that Random Forest Classifier (RFC) gave the best accuracy score of 0.85. We also created a scatterplot of the feature importances of each model, which shows that funding and industry are the most important predictors of startup success.
-
-## Running the Code
-
-```bash
-To run the code, you'll need to do following steps :
-
-- Import necessary libraries :
-  pandas
-  numpy
-  seaborn
-  scikit-learn
-  plotly
-
-- Read a CSV file "startup data.csv" and storing the data in the 'dataset' dataframe.
-
-- Rename the 'status' column to 'is_acquired' and changing its values from 'acquired' to '1' and from 'operating' to '0'.
-
-- Create a heatmap to check the correlation between different features of the dataset.
-
-- Remove outliers from the dataset by computing the interquartile range (IQR) and checking if any value falls outside the range of [Q1 - 1.5IQR, Q3 + 1.5IQR]. The values outside this range are considered as outliers.
-
-- Input missing values in numerical features of the dataset using KNNImputer from the scikit-learn library.
-
-- Convert some features from object type to numeric type and deleting unnecessary features.
-
-- Create a correlation matrix and dropping features that have a correlation coefficient less than 0.2 with the target variable 'is_acquired'.
-
-- Code functions such as 'ignore_warn', 'draw_heatmap', 'getOutliersMatrix', and 'imputing_numeric_missing_values' that are used in the main code to perform the mentioned operations.
-
-- Finally, the cleaned and processed dataset is stored in the 'dataset' dataframe.
-
-- Use meta-modeling approach  to combine the predictions of multiple base models to improve the accuracy of the final prediction. The base models used are a XGBoost Classifier(XBC), AdaBoost Classifier(ABC), a Random Forest Classifier (RFC), and a Gradient Boosting Classifier (GBC).
-
-- For each of the base models, a grid search is performed to find the optimal hyperparameters that give the best accuracy score. The hyperparameters that are tuned vary depending on the model, but some common ones include the maximum depth of the tree, the number of estimators, and the learning rate.
-
-- Print The results of each grid search are , and the best estimator is added to a list of the best classifiers. Finally, Define a function to create a scatterplot of the feature importances of each base model using Plotly.
+* **Renaming & Mapping:** The target column `status` is mapped to binary values where `acquired` → `1` and `closed` → `0`.
+* **Correlation Analysis:** A heatmap is generated to identify features with the strongest predictive power, ensuring only relevant data influences the model.
+* **Model Persistence:** Once training is complete, the optimized Random Forest model is serialized and saved as `random_forest_model.pkl` for use in the production environment.
 
 
-```
 
-## Limitations and Future Research
-It's important to note that this analysis has several limitations, such as the potential for bias in the dataset and the limited set of features used to predict success. Future research could explore additional features or data sources to improve the accuracy of the model, as well as validate the model's predictions on real-world data.
+## 🤖 Machine Learning Models
+We evaluated several state-of-the-art classifiers, including XGBoost, AdaBoost, and Gradient Boosting. The **Random Forest Classifier (RFC)** was selected as the final model due to its superior performance, achieving an **accuracy score of 0.85**. 
+
+
+
+[Image of a random forest algorithm diagram]
+
+
+## 🚀 Web Deployment (Flask)
+The project includes a robust Flask application (`app.py`) that serves as the bridge between the ML model and the end-user. It allows for real-time predictions through a clean web interface.
+
+**To launch the application locally:**
+1.  Ensure all dependencies are installed (`pip install flask pandas numpy scikit-learn`).
+2.  Run the server:
+    ```bash
+    python app.py
+    ```
+3.  Navigate to `http://127.0.0.1:5000` in your web browser to access the prediction interface.
+
+
+
+## ⚠️ Limitations & Future Research
+* **Dataset Bias:** The model is trained on historical data; future iterations will incorporate recent post-pandemic market data to improve current relevancy.
+* **Feature Expansion:** Plans are in place to integrate social media sentiment analysis and founder experience metrics to capture qualitative success factors.
+* **Deep Learning:** Future research will explore Artificial Neural Networks (ANNs) to identify more complex, non-linear relationships within the startup ecosystem.
+
+## 👨‍💻 Author
+**Chaitanya Potnuri** *February 2026*
